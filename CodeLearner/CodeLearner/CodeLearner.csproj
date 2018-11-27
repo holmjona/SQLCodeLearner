@@ -70,6 +70,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="SprocDAL.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -113,6 +114,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="data\DBScript.sql" />
+    <Content Include="data\DBSprocs.sql" />
     <Content Include="data\MyData.mdf">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

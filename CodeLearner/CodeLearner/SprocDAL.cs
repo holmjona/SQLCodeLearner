@@ -6,21 +6,11 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace CodeLearner {
-    static class DAL {
-        private static string _ConnectionString = null;
+   static class  SprocDAL {
 
-        internal static string ConnectionString {
+        private static string ConnectionString {
             get {
-                if (_ConnectionString == null) {
-                    //the next three lines of code are to allow for relative paths 
-                    // and is based on code found at:
-                    // https://stackoverflow.com/questions/1833640/connection-string-with-relative-path-to-the-database-file
-                    string exeLoc = System.Reflection.Assembly.GetExecutingAssembly().Location;
-                    string path = (System.IO.Path.GetDirectoryName(exeLoc));
-                    AppDomain.CurrentDomain.SetData("DataDirectory", path);
-                    _ConnectionString = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=|DataDirectory|\data\MyData.mdf;Integrated Security=True";
-                }
-                return _ConnectionString;
+                return DAL.ConnectionString;
             }
         }
 
@@ -30,8 +20,10 @@ namespace CodeLearner {
             try {
                 conn = new SqlConnection(ConnectionString);
                 conn.Open();
-                SqlCommand comm =
-                    new SqlCommand("SELECT * FROM People");
+                SqlCommand comm =new SqlCommand();
+                //comm.CommandText = "SELECT * FROM People";
+                comm.CommandText = "sprocPeopleGetAll";
+                comm.CommandType = System.Data.CommandType.StoredProcedure;
                 comm.Connection = conn;
 
                 SqlDataReader dr = comm.ExecuteReader();
@@ -67,9 +59,16 @@ namespace CodeLearner {
                 //    new SqlCommand("SELECT * FROM People WHERE PersonID = id"
                 //    , conn);
 
-                String qry = "SELECT * FROM People WHERE PersonID = @ID";
-                SqlCommand comm = new SqlCommand(qry, conn);
-                comm.Parameters.AddWithValue("@ID", id);
+                //String qry = "SELECT * FROM People WHERE PersonID = @ID";
+                SqlCommand comm = new SqlCommand("sprocPersonGet",conn);
+                comm.CommandType = System.Data.CommandType.StoredProcedure;
+
+                SqlParameter sPara = new SqlParameter();
+                sPara.ParameterName = "PersonID";
+                sPara.Value = id;
+                comm.Parameters.Add(sPara);
+
+                //comm.Parameters.AddWithValue("@PersonID", id);
 
                 //comm.Connection = conn;
 
@@ -87,7 +86,7 @@ namespace CodeLearner {
                     retPerson.PostFix = (string)dr["PostFix"];
                     retPerson.HomePage = (String)dr["HomePage"];
                 }
-            } catch(Exception ex) { 
+            } catch (Exception ex) {
             } finally {
                 if (conn != null) conn.Close();
             }
@@ -96,7 +95,38 @@ namespace CodeLearner {
             return retPerson;
         }
 
+        public static int AddPerson(Person p) {
+            int retInt = -1; // Did I pass
+            SqlConnection conn = null;
+            try {
+                conn = new SqlConnection(ConnectionString);
+                conn.Open();
+                
+                SqlCommand comm = new SqlCommand("sproc_PersonAdd", conn);
+                comm.CommandType = System.Data.CommandType.StoredProcedure;
 
+                comm.Parameters.AddWithValue("@FirstName",p.FirstName);
+                comm.Parameters.AddWithValue("@LastName", p.LastName);
+                comm.Parameters.AddWithValue("@DateOfBirth", p.DateOfBirth);
+                comm.Parameters.AddWithValue("@IsManager", p.IsManager);
+                comm.Parameters.AddWithValue("@Email", p.Email);
+                comm.Parameters.AddWithValue("@Phone", p.Phone);
+                comm.Parameters.AddWithValue("@PreFix", p.PreFix);
+                comm.Parameters.AddWithValue("@PostFix", p.PostFix);
+                comm.Parameters.AddWithValue("@HomePage", p.HomePage);
+                //comm.Connection = conn;
+
+                int affectedRows = comm.ExecuteNonQuery();
+                retInt = affectedRows;
+
+            } catch (Exception ex) {
+            } finally {
+                if (conn != null) conn.Close();
+            }
+
+
+            return retInt;
+        }
 
     }
 }

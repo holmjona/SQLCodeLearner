@@ -24,7 +24,8 @@ namespace CodeLearner {
         }
 
         private void btnGetNames_Click(object sender, RoutedEventArgs e) {
-            List<Person> peops = DAL.GetPeople(); //GetPeopleFromDatabase();
+            //List<Person> peops = DAL.GetPeople(); //GetPeopleFromDatabase();
+            List<Person> peops = SprocDAL.GetPeople(); 
 
             foreach (Person p in peops) {
                 stkNames.Children.Add(new Label() {
@@ -38,9 +39,16 @@ namespace CodeLearner {
 
         private void btnGetPerson_Click(object sender, RoutedEventArgs e) {
             int pID = int.Parse(txtPersonID.Text);
-            Person p = DAL.GetPerson(pID);
+            //Person p = DAL.GetPerson(pID);
+            Person p = SprocDAL.GetPerson(pID);
             MessageBox.Show(p.FirstName 
                 + " - Is manager: " + (p.IsManager ? "Yes": "No"));
+        }
+
+        private void btnAdd_Click(object sender, RoutedEventArgs e) {
+            Person pbob = new Person();
+            pbob.FirstName = "Bob";
+            SprocDAL.AddPerson(pbob); // Will it work?
         }
 
         //private List<Person> GetPeopleFromDatabase() {
