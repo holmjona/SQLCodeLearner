@@ -20,5 +20,22 @@ namespace CodeLearner {
         public frmPerson() {
             InitializeComponent();
         }
+
+        private void btnSave_Click(object sender, RoutedEventArgs e) {
+
+            Person p = new Person();
+            p.FirstName = txtFirstName.Text;
+            p.LastName = txtLastName.Text;
+            p.Phone = txtPhone.Text;
+            p.Prefix = txtPreFix.Text;
+            p.Postfix = txtPostFix.Text;
+            p.Homepage = txtHomePage.Text;
+            p.DateOfBirth = dpDateOfBirth.DisplayDate;
+            p.Email = txtEmail.Text;
+            p.IsManager = chkIsManager.IsChecked == true;
+            
+            SprocDAL.AddPerson(p);
+
+        }
     }
 }

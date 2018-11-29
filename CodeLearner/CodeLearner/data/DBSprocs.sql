@@ -29,7 +29,8 @@ END
 GO
 
 CREATE PROCEDURE dbo.sproc_PersonAdd
-	 @FirstName nvarchar(40)
+	@PersonID int OUTPUT
+	,@FirstName nvarchar(40)
 	,@LastName nvarchar(40) 
 	,@DateOfBirth datetime 
 	,@IsManager bit 
@@ -44,5 +45,6 @@ BEGIN
 					Prefix,Postfix,Phone,Email,Homepage) 
 					VALUES(@FirstName,@LastName,@DateOfBirth,@IsManager,
 					@Prefix,@Postfix,@Phone,@Email,@Homepage)
+				SET @PersonID = @@IDENTITY
 END
 GO

@@ -43,7 +43,7 @@
         <CheckBox Grid.Row="8" Grid.Column="1" x:Name="chkIsManager" ></CheckBox>
 
         <StackPanel Grid.Row="9" Orientation="Horizontal" HorizontalAlignment="Right" Grid.Column="1" Width="220">
-            <Button Width="100" x:Name="btnSave" Margin="5">Add</Button>
+            <Button Width="100" x:Name="btnSave" Margin="5" Click="btnSave_Click">Add</Button>
             <Button Width="100" x:Name="btnCancel" Margin="5">Cancel</Button>
 
         </StackPanel>

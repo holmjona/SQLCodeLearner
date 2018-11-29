@@ -44,9 +44,9 @@ namespace CodeLearner {
                     p.IsManager = (bool)dr["IsManager"];
                     p.Email = (String)dr["Email"];
                     p.Phone = (string)dr["Phone"];
-                    p.PreFix = (string)dr["PreFix"];
-                    p.PostFix = (string)dr["PostFix"];
-                    p.HomePage = (String)dr["HomePage"];
+                    p.Prefix = (string)dr["PreFix"];
+                    p.Postfix = (string)dr["PostFix"];
+                    p.Homepage = (String)dr["HomePage"];
                     peops.Add(p);
                 }
             } catch (Exception ex) {
@@ -83,9 +83,9 @@ namespace CodeLearner {
                     retPerson.IsManager = (bool)dr["IsManager"];
                     retPerson.Email = (String)dr["Email"];
                     retPerson.Phone = (string)dr["Phone"];
-                    retPerson.PreFix = (string)dr["PreFix"];
-                    retPerson.PostFix = (string)dr["PostFix"];
-                    retPerson.HomePage = (String)dr["HomePage"];
+                    retPerson.Prefix = (string)dr["PreFix"];
+                    retPerson.Postfix = (string)dr["PostFix"];
+                    retPerson.Homepage = (String)dr["HomePage"];
                 }
             } catch(Exception ex) { 
             } finally {

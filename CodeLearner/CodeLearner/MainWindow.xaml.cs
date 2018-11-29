@@ -21,6 +21,12 @@ namespace CodeLearner {
     public partial class MainWindow : Window {
         public MainWindow() {
             InitializeComponent();
+
+            Project p = SprocDAL.GetProject(1);
+
+            MessageBox.Show(p.ProjectTypeID.ToString());
+            MessageBox.Show(p.ProjectType.Name);
+
         }
 
         private void btnGetNames_Click(object sender, RoutedEventArgs e) {
@@ -49,6 +55,11 @@ namespace CodeLearner {
             Person pbob = new Person();
             pbob.FirstName = "Bob";
             SprocDAL.AddPerson(pbob); // Will it work?
+        }
+
+        private void btnAddNew_Click(object sender, RoutedEventArgs e) {
+            frmPerson frm = new frmPerson();
+            frm.ShowDialog();
         }
 
         //private List<Person> GetPeopleFromDatabase() {
