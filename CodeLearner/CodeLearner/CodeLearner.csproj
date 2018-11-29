@@ -70,7 +70,28 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="frmPerson.xaml.cs">
+      <DependentUpon>frmPerson.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="frmProject.xaml.cs">
+      <DependentUpon>frmProject.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="frmProjectToPerson.xaml.cs">
+      <DependentUpon>frmProjectToPerson.xaml</DependentUpon>
+    </Compile>
     <Compile Include="SprocDAL.cs" />
+    <Page Include="frmPerson.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="frmProject.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="frmProjectToPerson.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -113,6 +134,7 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="data\CodeSQL.sql" />
     <Content Include="data\DBScript.sql" />
     <Content Include="data\DBSprocs.sql" />
     <Content Include="data\MyData.mdf">
