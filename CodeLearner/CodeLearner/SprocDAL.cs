@@ -496,7 +496,49 @@ namespace CodeLearner {
             return retList;
         }
 
+        /// <summary>
+        /// Gets a list of all SQLCode.Project objects from the database.
+        /// </summary>
+        /// <remarks></remarks>
+        public static List<Project> GetProjects(ProjectType pt) {
+            SqlCommand comm = new SqlCommand("sprocProjectsGetForType");
+            List<Project> retList = new List<Project>();
+            try {
+                comm.CommandType = System.Data.CommandType.StoredProcedure;
+                comm.Parameters.AddWithValue("@ProjectTypeID", pt.ID);
+                SqlDataReader dr = GetDataReader(comm);
+                while (dr.Read()) {
+                    Project p = new Project(dr);
+                    p.ProjectType = pt;
+                    retList.Add(p);
+                }
+                comm.Connection.Close();
+            } catch (Exception ex) {
+                comm.Connection.Close();
+            }
+            return retList;
+        }
 
+        /// <summary>
+        /// Gets a list of all SQLCode.Project objects from the database.
+        /// </summary>
+        /// <remarks></remarks>
+        public static List<Project> GetProjects(Person pr) {
+            SqlCommand comm = new SqlCommand("sprocProjectsGetForPerson");
+            List<Project> retList = new List<Project>();
+            try {
+                comm.CommandType = System.Data.CommandType.StoredProcedure;
+                SqlDataReader dr = GetDataReader(comm);
+                comm.Parameters.AddWithValue("@PersonID", pr.ID);
+                while (dr.Read()) {
+                    retList.Add(new Project(dr));
+                }
+                comm.Connection.Close();
+            } catch (Exception ex) {
+                comm.Connection.Close();
+            }
+            return retList;
+        }
 
 
         /// <summary>
@@ -613,6 +655,27 @@ namespace CodeLearner {
             List<ProjectPerson> retList = new List<ProjectPerson>();
             try {
                 comm.CommandType = System.Data.CommandType.StoredProcedure;
+                SqlDataReader dr = GetDataReader(comm);
+                while (dr.Read()) {
+                    retList.Add(new ProjectPerson(dr));
+                }
+                comm.Connection.Close();
+            } catch (Exception ex) {
+                comm.Connection.Close();
+            }
+            return retList;
+        }
+
+        /// <summary>
+        /// Gets a list of all SQLCode.ProjectPerson objects from the database.
+        /// </summary>
+        /// <remarks></remarks>
+        public static List<ProjectPerson> GetProjectPersons(Project pj) {
+            SqlCommand comm = new SqlCommand("sprocPeopleForProject");
+            List<ProjectPerson> retList = new List<ProjectPerson>();
+            try {
+                comm.CommandType = System.Data.CommandType.StoredProcedure;
+                
                 SqlDataReader dr = GetDataReader(comm);
                 while (dr.Read()) {
                     retList.Add(new ProjectPerson(dr));

@@ -131,7 +131,7 @@ namespace CodeLearner {
         public List<ProjectPerson> Workers {
             get {
                 if (_Workers == null) {
-                   // _Workers = S_DAL.GetProjectPeople(this);
+                   _Workers = SprocDAL.GetProjectPeople(this);
                 }
                 return _Workers;
             }

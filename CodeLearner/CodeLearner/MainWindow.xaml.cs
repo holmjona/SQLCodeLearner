@@ -24,8 +24,21 @@ namespace CodeLearner {
 
             Project p = SprocDAL.GetProject(1);
 
-            MessageBox.Show(p.ProjectTypeID.ToString());
+            //MessageBox.Show(p.ProjectTypeID.ToString());
+            //MessageBox.Show(p.ProjectType.Name);
+            //MessageBox.Show(p.ProjectType.Name);
+
+            //p.Name = "I made up a new name.";
+
             MessageBox.Show(p.ProjectType.Name);
+            p.ProjectType.Name = "New Name";
+            SprocDAL.UpdateProjectType(p.ProjectType);
+            MessageBox.Show(p.ProjectType.Projects[0].ProjectType.Name);
+
+            //foreach (Project pp in p.ProjectType.Projects ) {
+            //    MessageBox.Show(pp.Name);
+            //}
+
 
         }
 

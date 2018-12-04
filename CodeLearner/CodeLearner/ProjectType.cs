@@ -64,7 +64,7 @@ namespace CodeLearner {
         public List<Project> Projects {
             get {
                 if (_Projects == null) {
-                   // _Projects = S_DAL.GetProjects(this);
+                    _Projects = SprocDAL.GetProjects(this);
                 }
                 return _Projects; 
             }
